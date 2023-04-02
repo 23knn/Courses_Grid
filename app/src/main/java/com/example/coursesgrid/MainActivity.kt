@@ -4,17 +4,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Card
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.example.coursesgrid.data.DataSource
 import com.example.coursesgrid.models.Topic
 
@@ -30,12 +33,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable 
 fun CoursesApp(topics: List<Topic>, modifier: Modifier = Modifier){
-    var count = 1
     Surface(modifier = modifier){
-        LazyColumn(modifier = modifier){
+        LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = modifier){
             items(topics){topic ->
                 CourseCapsule(topic, modifier = modifier)
-                println(count++)
+                Spacer(modifier = Modifier.height(5.dp))
             }
         }
     }
@@ -43,14 +45,16 @@ fun CoursesApp(topics: List<Topic>, modifier: Modifier = Modifier){
 
 @Composable
 fun CourseCapsule(topic: Topic, modifier: Modifier = Modifier){
-    Row(modifier = modifier){
-        Image(
-            painter = painterResource(id = topic.TopicIcon),
-            contentDescription = "stringResource(id = topic.TopicName)"
-        )
-        Column(modifier = modifier){
-            Text(text = stringResource(id = topic.TopicName))
-            Text(text = topic.NumberOfCourses.toString())
+    Card(elevation = 5.dp) {
+        Row(modifier = modifier) {
+            Image(
+                painter = painterResource(id = topic.TopicIcon),
+                contentDescription = "stringResource(id = topic.TopicName)"
+            )
+            Column(modifier = modifier) {
+                Text(text = stringResource(id = topic.TopicName))
+                Text(text = topic.NumberOfCourses.toString())
+            }
         }
     }
 }
