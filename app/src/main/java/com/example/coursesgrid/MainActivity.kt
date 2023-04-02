@@ -15,6 +15,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -46,13 +48,31 @@ fun CoursesApp(topics: List<Topic>, modifier: Modifier = Modifier){
 fun CourseCapsule(topic: Topic, modifier: Modifier = Modifier){
     Card(elevation = 5.dp, modifier = modifier.padding(10.dp)) {
         Row(modifier = modifier) {
-            Image(
-                painter = painterResource(id = topic.TopicIcon),
-                contentDescription = "stringResource(id = topic.TopicName)"
-            )
+            Box{
+                Image(
+                    painter = painterResource(id = topic.TopicIcon),
+                    contentDescription = stringResource(id = topic.TopicName),
+                    modifier = Modifier.size(width = 68.dp, height = 68.dp).aspectRatio(1f),
+                    contentScale = ContentScale.Crop
+                )
+            }
             Column(modifier = modifier) {
-                Text(text = stringResource(id = topic.TopicName))
-                Text(text = topic.NumberOfCourses.toString())
+                Text(
+                    text = stringResource(id = topic.TopicName),
+                    modifier = Modifier.padding(
+                        start = 16.dp,
+                        top = 12.dp,
+                        bottom = 8.dp
+                    )
+                    )
+                Row {
+                   Image(
+                       painter = painterResource(id = R.drawable.ic_grain),
+                       contentDescription = "grain"
+                   )
+                    Text(text = topic.NumberOfCourses.toString())
+                }
+
             }
         }
     }
