@@ -37,7 +37,6 @@ fun CoursesApp(topics: List<Topic>, modifier: Modifier = Modifier){
         LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = modifier){
             items(topics){topic ->
                 CourseCapsule(topic, modifier = modifier)
-                Spacer(modifier = Modifier.height(5.dp))
             }
         }
     }
@@ -45,7 +44,7 @@ fun CoursesApp(topics: List<Topic>, modifier: Modifier = Modifier){
 
 @Composable
 fun CourseCapsule(topic: Topic, modifier: Modifier = Modifier){
-    Card(elevation = 5.dp) {
+    Card(elevation = 5.dp, modifier = modifier.padding(10.dp)) {
         Row(modifier = modifier) {
             Image(
                 painter = painterResource(id = topic.TopicIcon),
